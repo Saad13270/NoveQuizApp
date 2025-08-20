@@ -6,7 +6,7 @@ export default function QuestionCard({ question, options, selectedIndex, onSelec
 			<h2 className="text-xl font-semibold mb-5" data-testid="question-text">{question}</h2>
 			<div className="grid gap-3">
 				{options.map((opt, idx) => (
-					<button
+					<button type="button"
 						key={idx}
 						onClick={() => onSelect(idx)}
 						className={`text-left border rounded-lg px-4 py-3 transition-all ${

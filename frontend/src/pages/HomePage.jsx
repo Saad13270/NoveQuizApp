@@ -12,7 +12,7 @@ export default function HomePage({ onStart }) {
 				<span className="text-sm">Ready when you are</span>
 			</div>
 			<div>
-				<Button onClick={onStart} data-testid="start-btn">Start Quiz</Button>
+				<Button onClick={(e) => { e.preventDefault?.(); onStart(); }} data-testid="start-btn">Start Quiz</Button>
 			</div>
 		</div>
 	);
