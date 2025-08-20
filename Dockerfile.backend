@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY backend/package*.json ./
+RUN npm ci
+
+# Copy source
+COPY backend/src ./src
+COPY backend/jest.config.js ./jest.config.js
+COPY backend/.env.example ./
+
+EXPOSE 4000
+
+CMD ["npm", "start"]
+
+# Placeholder
