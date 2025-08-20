@@ -10,11 +10,15 @@ function getViteEnv() {
 	}
 }
 
-const API_BASE = (getViteEnv() && getViteEnv().VITE_API_URL) || process.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_BASE = (typeof window !== 'undefined' && window.__APP_CONFIG__ && window.__APP_CONFIG__.VITE_API_URL)
+	|| (getViteEnv() && getViteEnv().VITE_API_URL)
+	|| process.env.VITE_API_URL
+	|| 'http://localhost:4000/api';
 
 export async function getQuestions() {
 	try {
-		const res = await fetch(`${API_BASE}/questions`);
+		// Prefer new structured route if available
+		const res = await fetch(`${API_BASE}/quiz/questions`).catch(() => fetch(`${API_BASE}/questions`));
 		if (!res.ok) throw new Error('Failed to fetch questions');
 		return await res.json();
 	} catch (err) {
@@ -25,11 +29,15 @@ export async function getQuestions() {
 
 export async function submitAnswers(answers) {
 	try {
-		const res = await fetch(`${API_BASE}/submit`, {
+		const res = await fetch(`${API_BASE}/quiz/submit`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ answers }),
-		});
+		}).catch(() => fetch(`${API_BASE}/submit`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ answers }),
+		}));
 		if (!res.ok) throw new Error('Failed to submit answers');
 		return await res.json();
 	} catch (err) {

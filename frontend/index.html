@@ -6,11 +6,18 @@
     <title>NovaQuiz</title>
   </head>
   <body>
+    <script>
+      // Runtime-configurable env bridge without eval
+      window.__APP_CONFIG__ = {
+        VITE_API_URL: (window.env && window.env.VITE_API_URL) || undefined
+      };
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
   
 </html>
+
 
 
 

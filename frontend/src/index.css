@@ -6,4 +6,23 @@ html, body, #root {
 	height: 100%;
 }
 
+/* Simple, lightweight animations without extra deps */
+@keyframes fade-in {
+	0% { opacity: 0 }
+	100% { opacity: 1 }
+}
+@keyframes slide-up {
+	0% { transform: translateY(8px); opacity: 0 }
+	100% { transform: translateY(0); opacity: 1 }
+}
+
+.animate-fade-in { animation: fade-in 400ms ease-out both }
+.animate-slide-up { animation: slide-up 400ms ease-out both }
+
+/* Subtle glass effect for cards */
+.glass {
+	@apply bg-white/80 backdrop-blur border border-white/40 shadow;
+}
+
+
 /* Placeholder */
